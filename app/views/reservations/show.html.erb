@@ -1,0 +1,40 @@
+
+<h1> Your Reservation History </h1>
+
+<table>
+  <thead>
+  <tr>
+    <th>Car Model</th>
+    <th>Car Manufacturer</th>
+    <th>Checkout Date</th>
+    <th>Checkout Time</th>
+    <th>Return Date</th>
+    <th>Return Time</th>
+    <th>Price</th>
+    <th>Status</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <tr>
+
+    <% @showing_reservation.each do |reservation| %>
+        <% car=Car.find(reservation.car_id) %>
+        <td><%= car.model %></td>
+        <td><%= car.manufacturer %></td>
+        <td><%= reservation.checkout_date %></td>
+        <td><%= reservation.checkout_time.strftime("%I:%M%p") %></td>
+        <td><%= reservation.return_date %></td>
+        <td><%= reservation.return_time.strftime("%I:%M%p") %></td>
+        <td><%= reservation.cost %></td>
+        <% if reservation.status=="Reserved" %>
+            <td> Reserved </td>
+        <% elsif reservation.status=="Checkout" %>
+            <td> In Service </td>
+        <% else %>
+            <td> Completed </td>
+        <% end %>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

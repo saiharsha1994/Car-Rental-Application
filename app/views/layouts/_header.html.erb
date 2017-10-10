@@ -1,0 +1,19 @@
+<header class="navbar navbar-fixed-top navbar-inverse">
+  <div class="container">
+    <%= link_to "Car Rental App", '#', id: "logo" %>
+    <nav>
+      <ul class="nav navbar-nav navbar-right">
+        <% if logged_in?%>
+            <li><%= link_to "Home",   user_path(session[:user_id]) %></li>
+            <li><%= link_to "Update Profile", edit_user_path(session[:user_id]) , method: "get" %></li>
+      <% end %>
+        <!--<li><%= link_to "Help",  '#' %></li>-->
+        <% if logged_in?%>
+            <li><%= link_to "Logout", logout_path, method: "delete" %></li>
+        <% else %>
+            <li><%= link_to "Login", login_path, method: "get" %></li>
+        <% end %>
+      </ul>
+    </nav>
+  </div>
+</header>

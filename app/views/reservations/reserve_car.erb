@@ -1,0 +1,72 @@
+<style>
+  .datetime select:nth-child(1){
+    width: 130px;
+    text-indent: 15px;
+  }
+
+  .datetime select:nth-child(2) {
+    width: 200px;
+    text-indent: 5px;
+  }
+
+  .datetime select:nth-child(3) {
+    width: 110px;
+    text-indent: 15px;
+  }
+</style>
+
+
+<h1>Selected Car</h1>
+<center>
+  <table>
+    <thead>
+    <tr>
+      <th>Location</th>
+      <th>Car Name</th>
+      <th>Car Company</th>
+      <th>Car Type</th>
+      <th>Car Status</th>
+      <th>Car Hourly Charges</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @carselected.each do |selectedcars| %>
+        <tr>
+          <td><%= selectedcars.location %></td>
+          <td><%= selectedcars.model %></td>
+          <td><%= selectedcars.manufacturer %></td>
+          <td><%= selectedcars.style %></td>
+          <td><%= selectedcars.status %></td>
+          <td><%= selectedcars.hourly_rate %></td>
+          <% @car_id = selectedcars.id %>
+          <% @hourly_rate = selectedcars.hourly_rate %>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</center>
+<br>
+<h1>Select Timings</h1>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for @reservationcar, url: reserve_final_path do |f| %>
+        <% if @user.user_type!="user"%>
+            <%= f.label :username %>
+            <%= f.select :user_id, options_from_collection_for_select(@user_list.all{|o| o.name}, :id, :name), {:prompt => ""}%>
+        <% end %>
+        <%= f.label :checkout_date %>
+        <span class="datetime"><%= f.date_select :checkout_date %></span>
+        <%= f.label :checkout_time %>
+        <span class="datetime"><%= f.time_select :checkout_time, {ampm: true, ignore_date: true} %></span>
+        <%= f.label :return_date %>
+        <span class="datetime"> <%= f.date_select :return_date %> </span>
+        <%= f.label :return_time %>
+        <span class="datetime"><%= f.time_select :return_time, {ampm: true, ignore_date: true} %></span>
+        <%= f.submit "Reserve Car", id:"reserve_car1", class: "btn btn-primary" %>
+        <%= hidden_field_tag 'car_id',  @car_id %>
+        <%= hidden_field_tag 'hourly_rate',  @hourly_rate %>
+        <%= hidden_field_tag 'hourly_rate',  @hourly_rate %>
+    <% end %>
+  </div>
+</div>

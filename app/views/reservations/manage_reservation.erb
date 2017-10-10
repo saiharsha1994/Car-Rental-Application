@@ -1,0 +1,56 @@
+<%= form_for @user, url: manage_reservation_path do |f| %>
+
+    <%= f.label :user_name %>
+    <%= f.select :id, options_from_collection_for_select(@user_list.all{ |o| o.name}, :id, :name), {:prompt => "Select.."}%>
+    <%= f.submit "Select", class: "btn btn-primary" %>
+
+<% end %>
+<% if !@selecteduser.nil? %>
+<p id="notice"><%= notice %></p>
+
+
+<table>
+  <thead>
+  <tr>
+    <th>Location</th>
+    <th>Car Name</th>
+    <th>Car Company</th>
+    <th>Car Type</th>
+    <th>Checkout Date</th>
+    <th>Checkout Time</th>
+    <th>Return Date</th>
+    <th>Return Time</th>
+    <th>Price</th>
+    <th> Actions</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% if !@selecteduser.nil? then %>
+      <% @selecteduser.each do |reservation| %>
+          <tr>
+            <% car=Car.find(reservation.car_id) %>
+            <td><%= car.location %></td>
+            <td><%= car.model %></td>
+            <td><%= car.manufacturer %></td>
+            <td><%= car.style %></td>
+            <td><%= reservation.checkout_date %></td>
+            <td><%= reservation.checkout_time.strftime("%I:%M%p") %></td>
+            <td><%= reservation.return_date %></td>
+            <td><%= reservation.return_time.strftime("%I:%M%p") %></td>
+            <td><%= reservation.cost %></td>
+            <% if reservation.status=="Avaliable" %>
+            <td> </td>
+            <% elsif reservation.status=="Checkout" %>
+                <td><%= link_to 'Return',"#" %></td>
+             <% else %>
+                <td><%= link_to 'Checkout',"#" %></td>
+            <% end %>
+          </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<% end %>

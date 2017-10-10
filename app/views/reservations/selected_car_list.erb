@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Reservations</h1>
+
+<table>
+  <thead>
+  <tr>
+    <th>Car</th>
+    <th>User</th>
+    <th>Checkout date</th>
+    <th>Return date</th>
+    <th>Checkout time</th>
+    <th>Return time</th>
+    <th colspan="3"></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @selectedcars.each do |selectedcars| %>
+      <tr>
+        <td><%= selectedcars.location %></td>
+        <td><%= selectedcars.model %></td>
+        <td><%= selectedcars.manufacturer %></td>
+        <td><%= selectedcars.style %></td>
+        <td><%= selectedcars.status %></td>
+        <td><%= selectedcars.hourly_rate %></td>
+        <% if selectedcars.status=="AVALIABLE" %>
+            <td><%= link_to 'Checkout', "#" %></td>
+            <td><%= link_to 'Reserve', "#" %></td>
+        <% else %>
+        <% end %>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br>

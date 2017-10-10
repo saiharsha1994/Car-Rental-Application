@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CarRentalApp2</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <%= render 'layouts/header'%>
+    <div>
+      <% flash.each do |message_type, message| %>
+          <div class="alert-<%= message_type %>">
+            <br>
+            <ul>
+              <%= message %>
+            </ul>
+            <br>
+          </div>
+
+      <% end %>
+    </div>
+    <%= yield %>
+  <%= render 'layouts/footer' %>
+  </body>
+</html>

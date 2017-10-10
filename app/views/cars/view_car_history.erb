@@ -1,0 +1,33 @@
+<center>
+<table>
+  <thead>
+  <tr>
+    <th>Location</th>
+    <th>Car Name</th>
+    <th>User</th>
+    <th>Checkout Date</th>
+    <th>Checkout Time</th>
+    <th>Return Date</th>
+    <th>Return Time</th>
+    <th>Price</th>
+  </tr>
+  </thead>
+
+  <tbody>
+      <% @carreservation.each do |reservation| %>
+          <tr>
+            <% car=Car.find(reservation.car_id) %>
+            <% user=User.find(reservation.user_id) %>
+            <td><%= car.location %></td>
+            <td><%= car.model %></td>
+            <td><%= user.name %></td>
+            <td><%= reservation.checkout_date %></td>
+            <td><%= reservation.checkout_time %></td>
+            <td><%= reservation.return_date %></td>
+            <td><%= reservation.return_time %></td>
+            <td><%= reservation.cost %></td>
+          </tr>
+      <% end %>
+  </tbody>
+</table>
+</center>

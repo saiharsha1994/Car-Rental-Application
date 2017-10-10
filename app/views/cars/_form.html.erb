@@ -1,0 +1,52 @@
+<%= form_with(model: car, local: true) do |form| %>
+  <% if car.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(car.errors.count, "error") %> prohibited this car from being saved:</h2>
+
+      <ul>
+      <% car.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :model %>
+    <%= form.text_field :model, id: :car_model %>
+  </div>
+
+  <div class="field">
+    <%= form.label :manufacturer %>
+    <%= form.text_field :manufacturer, id: :car_manufacturer %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.select :status,["Avaliable","Checkout"], id: :car_status %>
+  </div>
+
+  <div class="field">
+    <%= form.label :lic_no %>
+    <%= form.text_field :lic_no, id: :car_lic_no %>
+  </div>
+
+  <div class="field">
+    <%= form.label :hourly_rate %>
+    <%= form.number_field :hourly_rate, id: :car_hourly_rate %>
+  </div>
+
+  <div class="field">
+    <%= form.label :style %>
+    <%= form.select :style,["","Sedane","SUV","LUV", ], id: :car_style %>
+  </div>
+
+  <div class="field">
+    <%= form.label :location %>
+    <%= form.select :location,["","Raleigh","San Jose","New York"], id: :car_location %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

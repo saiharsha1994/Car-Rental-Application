@@ -1,0 +1,27 @@
+<center>
+<p id="notice"><%= notice %></p>
+
+<h1>List of Super Admins</h1>
+
+<table>
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>User Type</th>
+
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @users.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td><%= user.user_type %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+<br>
+</center>

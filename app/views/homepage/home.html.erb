@@ -1,0 +1,69 @@
+
+<style>
+  *{
+    padding: 0;
+    margin: 0;
+  }
+
+
+  div{
+    width: 100%;
+  }
+  div figure{
+    padding-top: 36.56%;  /* 702px/1920px = 0.3656 */
+    display: block;
+    background: url("https://hips.hearstapps.com/amv-prod-cad-assets.s3.amazonaws.com/images/17q2/678295/2017-jaguar-xf-20d-awd-test-review-car-and-driver-photo-684547-s-original.jpg") no-repeat center top;
+    background-size: cover;
+    text-align: center;
+    position: relative;
+  }
+
+
+  button{
+    padding: 15px 50px;
+    border: 0;
+    background: #3939ac;
+    color: #fff;
+    cursor: pointer;
+    position: absolute; top: 50%; left: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+  }
+  button:hover{
+    background: #c00;
+  }
+  h1{
+    position: absolute; top: 10%; left: 25%;
+    font-size: 400%;
+    margin-left: auto;
+    margin-right: auto;
+    color: #fff;
+  }
+  .btn-info {
+    background-color: #FFF;
+    color: #269abc;
+    font-size: 50%;
+    border-color: #39b3d7;
+    border-radius: 25px;
+  }
+  .btn-info:hover,
+  .btn-info:focus,
+  .btn-info:active    {
+    background-color: #39b3d7;
+    color: #FFF;
+    border-color: #269abc;
+  }
+</style>
+
+<div>
+  <figure>
+    <center><h1> Welcome To Car Rental App
+      <br>
+      <br>
+      <%= link_to "Sign up now!", new_user_path, class: "btn btn-info"%>
+    </h1></center>
+
+
+  </figure>
+</div>

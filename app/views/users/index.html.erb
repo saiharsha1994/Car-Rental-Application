@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>List of users</h1>
+<center>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Type</th>
+      <th colspan="2">Action</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td><%= user.user_type %></td>
+        <td><%= link_to 'Delete this user', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <%= hidden_field_tag(:u_acc_id, user.id) %>
+        <td><%= link_to 'Edit', edit_user_path(user.id) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</center>
+
+
+<br>
+<h2>
+<%= link_to 'Create a New User',{:controller => "users", :action => "new", :acc_type => "user"} %>
+</h2>
+<br>

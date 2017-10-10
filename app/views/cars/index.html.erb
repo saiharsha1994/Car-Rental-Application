@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<h1>List of Cars</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Model</th>
+      <th>Manufacturer</th>
+      <th>Status</th>
+      <th>Lic no</th>
+      <th>Hourly rate</th>
+      <th>Style</th>
+      <th>Location</th>
+      <th colspan="4">Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @cars.each do |car| %>
+      <tr>
+        <td><%= car.model %></td>
+        <td><%= car.manufacturer %></td>
+        <td><%= car.status %></td>
+        <td><%= car.lic_no %></td>
+        <td><%= car.hourly_rate %></td>
+        <td><%= car.style %></td>
+        <td><%= car.location %></td>
+        <td><%= link_to 'Show', car %></td>
+        <% if @user.user_type=="admin" or @user.user_type=="superadmin"%>
+          <td><%= link_to 'Edit', edit_car_path(car) %></td>
+          <td><%= link_to 'Destroy', car, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td><%= link_to 'History',{:controller => "cars", :action => "view_car_history", :acc_type => car.id} %></td>
+        <%end %>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

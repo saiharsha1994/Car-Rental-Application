@@ -1,0 +1,61 @@
+<h1>Search Car</h1>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+
+    <%= form_for @cars, url: search_car_path do |f| %>
+
+        <%= f.label :location %>
+        <%= f.select :location, options_from_collection_for_select(Car.all.to_a.uniq{ |o| o.location}, :location, :location), {:prompt => "Select.."}%>
+        <%= f.label :car %>
+        <%= f.select :model, options_from_collection_for_select(Car.all.to_a.uniq{ |o| o.model}, :model, :model), {:prompt => "Select.."}%>
+        <%= f.label :manufacturer %>
+        <%= f.select :manufacturer, options_from_collection_for_select(Car.all.to_a.uniq{ |o| o.manufacturer}, :manufacturer, :manufacturer), {:prompt => "Select.."}%>
+        <%= f.label :car_type %>
+        <%= f.select :style, options_from_collection_for_select(Car.all.to_a.uniq{ |o| o.style}, :style, :style), {:prompt => "Select.."}%>
+        <%= f.submit "Search", class: "btn btn-primary" %>
+
+    <% end %>
+  </div>
+</div>
+<br>
+<br>
+<center>
+  <p id="notice"><%= notice %></p>
+<table>
+  <thead>
+  <tr>
+    <th>Location</th>
+    <th>Car Name</th>
+    <th>Car Company</th>
+    <th>Car Type</th>
+    <th>Car Status</th>
+    <th>Car Hourly Charges</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% if !@selectedcars.nil? then
+     else
+       @selectedcars=Car.all
+     end %>
+  <% @selectedcars.each do |selectedcars| %>
+  <tr>
+    <td><%= selectedcars.location %></td>
+    <td><%= selectedcars.model %></td>
+    <td><%= selectedcars.manufacturer %></td>
+    <td><%= selectedcars.style %></td>
+    <td><%= selectedcars.status %></td>
+    <td><%= selectedcars.hourly_rate %></td>
+    <% if selectedcars.status=="Avaliable" %>
+        <td><%= link_to 'Reserve', {:controller => "reservations", :action => "reserve_car", :car => selectedcars.id}%></td>
+    <% elsif selectedcars.status=="Checkout" %>
+        <td><%= link_to 'Notify ', {:controller => "reservations", :action => "notify_car", :car => selectedcars.id}%></td>
+    <% end %>
+  </tr>
+  <% end %>
+  </tbody>
+</table>
+</center>
+<br>
+
+

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h2>
+  Welcome <%= @user.name %>!
+</h2>
+<% if !@reservation.empty? %>
+<h1>
+  Your Bookings
+</h1>
+    <p> Note: Date format is YYYY/MM/DD</p>
+<table>
+  <thead>
+  <tr>
+    <th>Location</th>
+    <th>Car Name</th>
+    <th>Car Company</th>
+    <th>Car Type</th>
+    <th>Checkout Date</th>
+    <th>Checkout Time</th>
+    <th>Return Date</th>
+    <th>Return Time</th>
+    <th colspan =2> Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @reservation.each do |selectedcars| %>
+      <tr>
+        <% car=Car.find(selectedcars.car_id) %>
+        <td><%= car.location %></td>
+        <td><%= car.model %></td>
+        <td><%= car.manufacturer %></td>
+        <td><%= car.style %></td>
+        <td><%= selectedcars.checkout_date %></td>
+        <td><%= selectedcars.checkout_time.strftime("%I:%M%p") %></td>
+        <td><%= selectedcars.return_date %></td>
+        <td><%= selectedcars.return_time.strftime("%I:%M%p") %></td>
+        <% if selectedcars.status=="Reserved" %>
+          Current Time:  <%=  Time.now.to_time.strftime("%I:%M%p") %>,  You can only checkout after checkout time is reached. Please
+            keep refreshing the page!
+            <% if selectedcars.checkout_time.hour  <=  Time.now.hour and selectedcars.checkout_time.min  <=  Time.now.min %>
+            <td><%= link_to 'Checkout',reserve_checkout_path %></td>
+            <% end %>
+            <td><%= link_to 'Cancel Reservation',reserve_cancel_path %></td>
+        <% elsif selectedcars.status=="Checkout" %>
+            <td><%= link_to 'Return',reserve_return_path %></td>
+        <% end %>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+<% end %>
+<br>
+<br>
+
+<ul class="list-group">
+  <% if @user.user_type=="superadmin" %>
+      <li class="list-group-item"><%= link_to "Add Super Admins",{:controller => "users", :action => "new", :acc_type => "superadmin"}%></li>
+      <li class="list-group-item"><%= link_to "View Super Admins", view_superadmins_url , method: "get" %></li>
+      <% end %>
+  <% if @user.user_type=="admin" or @user.user_type=="superadmin" %>
+      <li class="list-group-item"><%= link_to "Add Admin", {:controller => "users", :action => "new", :acc_type => "admin"} %></li>
+      <% if @user.user_type=="admin" or @user.user_type!="superadmin" %>
+          <li class="list-group-item"><%= link_to "View Admins", view_admins_url , method: "get" %></li>
+         <% else %>
+          <li class="list-group-item"><%= link_to "View/Delete Admins", view_admins_url , method: "get" %></li>
+          <% end %>
+      <li class="list-group-item"><%= link_to "Manage Cars (Add/View/Edit/Delete/Check history) ", admin_manage_cars_url , method: "get" %></li>
+      <li class="list-group-item"><%= link_to "Manage Users", users_url , method: "get" %></li>
+      <li class="list-group-item"><%= link_to "Manage Reservations of users", manage_reservation_path , method: "get" %></li>
+      <li class="list-group-item"><%= link_to "Make Reservation for User", search_car_url , method: "get" %></li>
+      <li class="list-group-item"><%= link_to "Review Suggestion", suggestions_path , method: "get" %></li>
+   <% else %>
+      <li class="list-group-item"><%= link_to "Make a Reservation", search_car_url , method: "get" %></li>
+      <li class="list-group-item"><%= link_to "My Reservation History", reservation_url , method: "get" %></li>
+      <li class="list-group-item"><%= link_to "Make Suggetion", new_suggestion_url , method: "get" %></li>
+<%end%>
+</ul>
+</body>
+</html>

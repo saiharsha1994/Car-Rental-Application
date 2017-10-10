@@ -1,0 +1,29 @@
+  <center>
+<h1>Suggestions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Model</th>
+      <th>Manufacture</th>
+      <th>Style</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @suggestions.each do |suggestion| %>
+      <tr>
+        <td><%= suggestion.model %></td>
+        <td><%= suggestion.manufacture %></td>
+        <td><%= suggestion.style %></td>
+        <td><%= link_to 'Add Suggestion', edit_suggestion_path(suggestion) %></td>
+        <td><%= link_to 'Destroy', suggestion, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+</center>

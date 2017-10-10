@@ -1,0 +1,2 @@
+class Emailto < ApplicationRecord
+end
